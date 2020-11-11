@@ -54,18 +54,18 @@ class GameStore {
     }
 
     private Game choseGame() {
-        System.out.println("What game do you want to insert?");
-        System.out.println("Type the exact name");
-        System.out.println();
-        printListOfGames();
-        String choice = scan.nextLine();
-
-        if (games.containsKey(choice)) {
-            return games.get(choice);
-        } else {
-            System.out.println("Game isnt on the list, try again");
+        while (true) {
+            System.out.println("What game do you want to insert?");
+            printListOfGames();
+            System.out.println("Type the exact name:");
             System.out.println();
-            return null;
+            String choice = scan.nextLine();
+            if (games.containsKey(choice)) {
+                return games.get(choice);
+            } else {
+                System.out.println("Game isnt on the list, try again");
+                System.out.println();
+            }
         }
     }
 }
