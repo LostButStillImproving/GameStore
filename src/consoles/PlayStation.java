@@ -9,7 +9,6 @@ public class PlayStation implements Console {
     private boolean on = false;
     private Game gameInside;
 
-    @Override
     public void pushPowerButton() {
         if (this.on) {
             this.on = false;
@@ -21,7 +20,6 @@ public class PlayStation implements Console {
         }
     }
 
-    @Override
     public void insertGame(Game game) {
         if (this.gameInside == null) {
             System.out.println("You put " + game.getNameOfGame() + " into the PlayStation");
@@ -35,7 +33,6 @@ public class PlayStation implements Console {
 
     }
 
-    @Override
     public void removeGame() {
         if (gameInside != null && this.on) {
             System.out.println("You removed the game " + gameInside.getNameOfGame());

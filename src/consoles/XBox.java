@@ -17,7 +17,6 @@ public class XBox implements Console {
             checkState();
         }
     }
-    @Override
     public void insertGame(Game game) {
         if (this.gameInside == null) {
             System.out.println("You put " + game.getNameOfGame() + " into the xBox");
@@ -26,7 +25,6 @@ public class XBox implements Console {
         } else System.out.println("There is already a game inside");
     }
 
-    @Override
     public void removeGame() {
         if (gameInside != null && this.on) {
             System.out.println("You removed the game " + gameInside.getNameOfGame());

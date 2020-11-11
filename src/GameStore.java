@@ -17,10 +17,11 @@ class GameStore {
         fillGameStore();
     }
 
-    void fillGameStore() {
+    private void fillGameStore() {
         games.put("Halo 3", new xBoxGame("Halo 3"));
         games.put("Ratchet&Clank", new PlayStationGame("Ratchet&Clank"));
     }
+
 
     void printListOfGames() {
         Iterator playStationIterator = games.entrySet().iterator();
@@ -29,7 +30,9 @@ class GameStore {
         while (playStationIterator.hasNext()){
             Map.Entry pair = (Map.Entry)playStationIterator.next();
             if(pair.getValue() instanceof PlayStationGame) {
-                System.out.println(pair.getKey());
+                //Jeg benytter toString i stedet for .getKey() for at demonstere
+                // overriding af toString() metoden. Se Game klassen.
+                System.out.println(pair.getValue().toString());
             }
         }
         System.out.println();
@@ -37,13 +40,13 @@ class GameStore {
         while (xBoxIterator.hasNext()){
             Map.Entry pairs = (Map.Entry)xBoxIterator.next();
             if(pairs.getValue() instanceof xBoxGame) {
-                System.out.println(pairs.getKey());
+                System.out.println(pairs.getValue().toString());
             }
         }
         System.out.println();
     }
 
-    void choseConsoleToInsertGameInto() {
+    protected void choseConsoleToInsertGameInto() {
         System.out.println("which console?");
         System.out.println("xBox[1] or PlayStation[2]");
         int choice = Integer.parseInt(scan.nextLine());
