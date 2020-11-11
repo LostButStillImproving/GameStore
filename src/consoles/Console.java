@@ -6,6 +6,7 @@ public interface Console {
 
     void pushPowerButton();
     void insertGame(Game game);
-    void playGame();
+    void removeGame();
+
 
 }

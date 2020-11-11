@@ -1,39 +1,72 @@
 import consoles.PlayStation;
 import consoles.XBox;
-import games.*;
+import games.Game;
+import games.PlayStationGame;
+import games.xBoxGame;
 
-import java.util.ArrayList;
-import java.util.stream.IntStream;
+import java.util.*;
 
 class GameStore {
-    ArrayList<Game> xBoxGames = new ArrayList<>();
-    ArrayList<Game> playStationGames = new ArrayList<>();
+    Scanner scan = new Scanner(System.in);
+    HashMap<String, Game> games = new HashMap<>();
+    XBox xBox = new XBox();
+    PlayStation playStation = new PlayStation();
 
-    ArrayList<Game> games = new ArrayList<>();
 
-    void fillGameStore(){
-        xBoxGames.add(new xBoxGame ("Halo 3"));
-        playStationGames.add(new PlayStationGame("Ratchet&Clank"));
+    public GameStore() {
+        fillGameStore();
+    }
 
+    void fillGameStore() {
+        games.put("Halo 3", new xBoxGame("Halo 3"));
+        games.put("Ratchet&Clank", new PlayStationGame("Ratchet&Clank"));
     }
 
     void printListOfGames() {
-        System.out.println("xBox Games: ");
-        xBoxGames.forEach(game -> System.out.print(game.getNameOfGame() + ", "));
-        System.out.println();
+        Iterator playStationIterator = games.entrySet().iterator();
+        Iterator xBoxIterator = games.entrySet().iterator();
         System.out.println("PlayStation games: ");
-        playStationGames.forEach(game -> System.out.print(game.getNameOfGame() + ", "));
+        while (playStationIterator.hasNext()){
+            Map.Entry pair = (Map.Entry)playStationIterator.next();
+            if(pair.getValue() instanceof PlayStationGame) {
+                System.out.println(pair.getKey());
+            }
+        }
         System.out.println();
-
+        System.out.println("xBox Games");
+        while (xBoxIterator.hasNext()){
+            Map.Entry pairs = (Map.Entry)xBoxIterator.next();
+            if(pairs.getValue() instanceof xBoxGame) {
+                System.out.println(pairs.getKey());
+            }
+        }
+        System.out.println();
     }
 
-    public static void main(String[] args) {
-        GameStore gameStore = new GameStore();
-        gameStore.fillGameStore();
+    void choseConsoleToInsertGameInto() {
+        System.out.println("which console?");
+        System.out.println("xBox[1] or PlayStation[2]");
+        int choice = Integer.parseInt(scan.nextLine());
+        switch (choice) {
+            case 1 -> this.xBox.insertGame(choseGame());
+            case 2 -> this.playStation.insertGame(choseGame());
+        }
+    }
 
-        XBox xBox = new XBox();
-        PlayStation playStation = new PlayStation();
-        xBox.insertGame(gameStore.xBoxGames.get(0));
-        xBox.pushPowerButton();
+    private Game choseGame() {
+        System.out.println("What game do you want to insert?");
+        System.out.println("Type the exact name");
+        System.out.println();
+        printListOfGames();
+        String choice = scan.nextLine();
+
+        if (games.containsKey(choice)) {
+            return games.get(choice);
+        } else {
+            System.out.println("Game isnt on the list, try again");
+            System.out.println();
+            return null;
+        }
     }
 }
+
